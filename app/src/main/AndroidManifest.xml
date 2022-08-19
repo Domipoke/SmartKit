@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="it.domipoke.smartkit">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,22 +16,24 @@
         android:theme="@style/Theme.SmartKit"
         tools:targetApi="31">
         <activity
+            android:name=".StickerMaker"
+            android:exported="false"
+            android:label="StickerMaker" />
+        <activity
             android:name=".TikTokViewer"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"
+            android:label="TikTokViewer" />
+        <activity
+            android:name=".YoutubePiP"
+            android:exported="false"
+            android:label="Youtube PiP" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "https://vm.tiktok.com/” -->
-                <data android:scheme="https"
-                    android:host="vm.tiktok.com" />
-                <!-- note that the leading "/" is required for pathPrefix-->
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

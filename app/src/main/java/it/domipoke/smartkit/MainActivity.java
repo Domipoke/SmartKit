@@ -14,9 +14,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -37,11 +39,13 @@ public class MainActivity extends AppCompatActivity {
     TableLayout tbl;
     Context ctx;
     Map<String, Drawable> functions;
-    int MAX_CH=4;
+    int MAX_CH=6;
 
     private Map<String, Drawable> GetAllFunctions() {
         Map<String, Drawable> res = new HashMap();
-        res.put("TikTokViewer", ctx.getDrawable(R.drawable.ic_launcher_background));
+        res.put("TikTokViewer", ctx.getDrawable(R.drawable.tik_tok_viewer));
+        res.put("Sticker_Maker", ctx.getDrawable(R.drawable.tik_tok_viewer));
+        res.put("Youtube_PiP", ctx.getDrawable(R.drawable.tik_tok_viewer));
         return res;
     }
 
@@ -79,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     private void fetchDeepLinks() {
         Intent intent = getIntent();
         Uri uri = intent.getData();
+        System.out.println("URI -> "+uri);
         if (uri!=null) {
             String url = uri.toString();
             if (url.startsWith("https://vm.tiktok.com/")) {
@@ -108,12 +113,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void pushActionButton(String name, Drawable image) {
+        TableRow tr = getLastTableRow();
+
 
         ImageButton bt = new ImageButton(ctx);
-        bt.setMaxHeight(32);
-        bt.setMaxWidth(32);
-        bt.setMinimumHeight(32);
-        bt.setMinimumWidth(32);
+        int sqsize = dpToPixel(64);
+        bt.setLayoutParams(new TableRow.LayoutParams(sqsize,sqsize));
+        //bt.measure(sqsize,sqsize);
+        //bt.setMaxHeight(sqsize);
+        //bt.setMaxWidth(sqsize);
+        //bt.setMinimumHeight(sqsize);
+        //bt.setMinimumWidth(sqsize);
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,25 +132,37 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        bt.setBackgroundColor(Color.TRANSPARENT);
         bt.setImageDrawable(image);
+
         TextView lb = new TextView(ctx);
-        lb.setText(name);
+        lb.setText(name.replaceAll("_"," "));
         lb.setTextColor(Color.WHITE);
         lb.setTextSize(8.0F);
+        lb.setGravity(Gravity.CENTER);
         LinearLayout ll = new LinearLayout(ctx);
         ll.setOrientation(LinearLayout.VERTICAL);
         ll.addView(bt);
         ll.addView(lb);
-        ll.setGravity(Gravity.CENTER);
-        getLastTableRow().addView(ll);
+        //ll.setGravity(Gravity.CENTER);
+        ll.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        tr.addView(ll);
     }
 
     private Class getActivityFromString(String n) {
         switch (n.toLowerCase(Locale.ROOT)) {
             case "tiktokviewer":
                 return TikTokViewer.class;
+            case "sticker_maker":
+                return StickerMaker.class;
+            case "youtube_pip":
+                return YoutubePiP.class;
             default:
                 return MainActivity.class;
         }
+    }
+    public int dpToPixel(int dp) {
+        float scale = this.getResources().getDisplayMetrics().density;
+        return (int) ((float) dp * scale);
     }
 }

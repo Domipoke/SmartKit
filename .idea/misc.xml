@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Domenico/AndroidStudioProjects/SmartKit2/app/src/main/res/drawable/tik_tok_viewer.xml" value="0.193" />
         <entry key="..\:/Users/Domenico/AndroidStudioProjects/SmartKit2/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Users/Domenico/AndroidStudioProjects/SmartKit2/app/src/main/res/layout/activity_tik_tok_viewer.xml" value="0.1" />
+        <entry key="..\:/Users/Domenico/AndroidStudioProjects/SmartKit2/app/src/main/res/layout/activity_tik_tok_viewer.xml" value="0.13333333333333333" />
       </map>
     </option>
   </component>
